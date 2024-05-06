@@ -1,0 +1,15 @@
+version: '3'
+services:
+  panha:
+    image: panha_nextjs:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 3204:3000
+    networks:
+      - data_analytics
+networks:
+  data_analytics:
+    external: true 

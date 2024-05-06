@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+Disallow: /private/
+Disallow: /dashboard
+Sitemap: https://confirm-email.vercel.app/sitemap.xml
