@@ -3,7 +3,6 @@ import { API_URL_MYPRODUCT, ProductType } from "@/lib/definitions";
 import { useEffect, useState } from "react";
 import DataTable, { TableColumn } from "react-data-table-component";
 import { useRouter } from "next/navigation";
-import ViewPage from "@/app/(admin)/view/[ id ]/page";
 import { useGetProductsQuery } from "@/redux/service/product";
 import { useAppDispatch } from "@/redux/hooks";
 

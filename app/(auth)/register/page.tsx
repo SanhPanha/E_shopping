@@ -8,8 +8,8 @@ import { IoEyeSharp } from "react-icons/io5";
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { BASE_URL } from "@/lib/definitions";
 import { useRouter } from "next/navigation";
+import { BASE_URL } from "@/lib/definitions";
 type ValueTypes = {
   email: string;
   password1: string;

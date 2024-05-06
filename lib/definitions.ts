@@ -1,5 +1,5 @@
 const API_URL = "https://store.istad.co/api/products/";
-const BASE_URL = "https://store.istad.co";
+export const BASE_URL = "https://store.istad.co";
 const API_URL_CREATE = "https://store.istad.co/api/";
 const API_URL_MYPRODUCT = "https://store.istad.co/api/products/my_products/";
 const API_URL_LOGIN = "https://store.istad.co/api/user/login/";
@@ -45,6 +45,6 @@ const initialValues = {
 };
 
 export { token, initialValues, API_URL_CREATE, API_URL, API_URL_MYPRODUCT, API_URL_LOGIN };
-export { BASE_URL };
+export default { BASE_URL };
 export type { ProductType, CategoryType, userProfile};
 // export { token };

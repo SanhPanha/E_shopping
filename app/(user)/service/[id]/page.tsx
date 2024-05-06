@@ -23,6 +23,7 @@ export default async function Detail(props: Props) {
   return (
     <main className="h-screen grid place-content-center shadow-2xl">
       <CardComponent
+        
         id={data?.id || 0}
         image={
           data?.image ||
@@ -32,6 +33,7 @@ export default async function Detail(props: Props) {
         price={data?.price || 0}
         seller={data?.seller || "No Seller"}
         desc={data?.desc || "No Description"}
+        quantity={data?.quantity || 0}
       />
     </main>
   );
