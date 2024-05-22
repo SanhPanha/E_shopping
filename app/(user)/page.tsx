@@ -6,11 +6,14 @@ import React, { useEffect, useState } from "react";
 import { Pagination, Button } from "@nextui-org/react";
 import { useGetProductsQuery } from "@/redux/service/product";
 import { current } from "@reduxjs/toolkit";
+import { useAppSelector } from "@/redux/hooks";
+import CarouselComponent from "@/components/carousel/CarouselComponent";
 
 export default function HomePage() {
-  // const [products, setProducts] = useState<ProductType[]>([]);
-  const router = useRouter();
-  // const [currentPage, setCurrentPage] = React.useState(1);
+  const router = useRouter(); 
+  const state = useAppSelector((state) => state.auth.token);
+  console.log("Global state", state);
+
   const { data, error, isLoading, isFetching } = useGetProductsQuery({
     page: 1,
     pageSize: 10,
@@ -19,11 +22,13 @@ export default function HomePage() {
   console.log("data", data);
   console.log("error", error);
   console.log("isLoading", isLoading);
+  
 
   const products = data?.results || [];
 
   return (
     <div className="flex flex-col items-center justify-center my-10">
+      <CarouselComponent />
       <h2 className="text-4xl font-bold text-center text-gray-900 my-4">
         CSTAD E-COMMERCE
       </h2>

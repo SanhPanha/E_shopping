@@ -1,10 +1,11 @@
 "use client";
-import { API_URL_MYPRODUCT, ProductType } from "@/lib/definitions";
+import { API_URL_MYPRODUCT, ProductType, token } from "@/lib/definitions";
 import { useEffect, useState } from "react";
 import DataTable, { TableColumn } from "react-data-table-component";
 import { useRouter } from "next/navigation";
-import { useGetProductsQuery } from "@/redux/service/product";
+import { useGetMyProductsQuery, useGetProductsQuery } from "@/redux/service/product";
 import { useAppDispatch } from "@/redux/hooks";
+import { access } from "fs";
 
 export default function Shop() {
   const router = useRouter();
@@ -13,25 +14,16 @@ export default function Shop() {
   const [productDetail, setProductDetail] = useState<ProductType | null>(null);
   const dispatch = useAppDispatch();
 
-  const { data, error, isLoading, isFetching } = useGetProductsQuery({
-    page: 1,
-    pageSize: 10,
-});
+  // const { data, error, isLoading} = useGetMyProductsQuery();
 
-console.log("data", data);
-console.log("error", error);
-console.log("isLoading", isLoading);
-
+  // console.log("data", data);
+  // console.log("error", error);
+  // console.log("isLoading", isLoading);
 
   useEffect(() => {
     setLoading(true);
     fetch(`${process.env.NEXT_PUBLIC_API_URL_MYPRODUCTS}`, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${data?.token}`,
-      },
-    
     })
       .then((res) => res.json())
       .then((data) => {
@@ -48,6 +40,8 @@ console.log("isLoading", isLoading);
         setLoading(false);
       });
   }, []);
+
+  // NEXT_PUBLIC_DJANGO_API_URL
 
   const handleViewProduct = (product: ProductType) => {
     setProductDetail(product);
@@ -99,7 +93,7 @@ console.log("isLoading", isLoading);
         </div>
       ),
     },
-  ];  
+  ];
 
   return (
     <main className="flex flex-col justify-center">

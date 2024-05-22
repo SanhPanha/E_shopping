@@ -11,8 +11,9 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { API_URL_LOGIN } from "@/lib/definitions";
 import next from "next";
-import { useAppDispatch } from "@/redux/hooks";
-import { setAccessToken } from "@/redux/features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { selectToken, setAccessToken } from "@/redux/features/auth/authSlice";
+import email from "next-auth/providers/email";
 type ValueTypes = {
   email: string;
   password: string;
@@ -34,27 +35,32 @@ export default function Login() {
   const { data: session } = useSession();
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const[user, setUser] = useState(null);
+  const accessToken = useAppSelector(selectToken);
+
+  const [user, setUser] = useState(null);
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
     // Toggle password visibility
   };
 
   //  handle submit
-  const handleSubmit = (values: ValueTypes) => {
-    setLoading(true);
+  const handleSubmit = async () => {
+    const email = "";
+    const password = "";
     fetch(API_URL_LOGIN, {
       method: "POST",
       headers: {
+  
         "Content-Type": "application/json",
+        
       },
-      body: JSON.stringify(values),
+      body: JSON.stringify({ email, password }),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
         setLoading(false);
-        dispatch(setAccessToken(data.accessToken))
+        dispatch(setAccessToken(data.accessToken));
         setUser(data.user);
       })
       .catch((error) => {
@@ -62,6 +68,30 @@ export default function Login() {
         setLoading(false);
       });
   };
+
+  // console.log("Access Token", accessToken);
+
+  // const handleLogin = async () => {
+  //   const email = "sanhpanha3003@gmail.com";
+  //   const password = "Panha12345";
+
+  //   fetch(process.env.NEXT_PUBLIC_API_URL + "/login", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ email, password }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log("Data with JWT:", data);
+  //       setAccessToken(data.accessToken);
+  //       setUser(data.user);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   if (loading) {
     return (
@@ -77,9 +107,7 @@ export default function Login() {
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={(values, actions) => {
-            handleSubmit(values);
-          }}
+          onSubmit={handleSubmit}
         >
           <Form className="flex flex-col bg-orange-50 px-4 py-8 rounded w-96 shadow-xl border">
             <div className="flex justify-center">
@@ -151,6 +179,7 @@ export default function Login() {
               type="submit"
               // onClick={() => router.push("/")}
               className={`${style.button}`}
+              onClick={handleSubmit}
             >
               Login
             </button>

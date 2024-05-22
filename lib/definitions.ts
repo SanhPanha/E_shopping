@@ -2,7 +2,7 @@ const API_URL = "https://store.istad.co/api/products/";
 export const BASE_URL = "https://store.istad.co";
 const API_URL_CREATE = "https://store.istad.co/api/";
 const API_URL_MYPRODUCT = "https://store.istad.co/api/products/my_products/";
-const API_URL_LOGIN = "https://store.istad.co/api/user/login/";
+const API_URL_LOGIN = "https://store.istad.co/api/user/login";
 
 type CategoryType = {
   name: string;

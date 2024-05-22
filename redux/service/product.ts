@@ -18,13 +18,9 @@ export const productApi = ecommerceApi.injectEndpoints({
       any,
       { newProduct: object; accessToken: string }
     >({
-      query: ({ newProduct, accessToken }) => ({
+      query: ({ newProduct}) => ({
         url: "/api/products/",
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
         body: newProduct,
       }),
     }),
@@ -32,38 +28,36 @@ export const productApi = ecommerceApi.injectEndpoints({
     // update a product
     updateProduct: builder.mutation<
       any,
-      { id: number; updatedProduct: object; accessToken: string }
+      { id: number; updatedProduct: object; }
     >({
-      query: ({ id, updatedProduct, accessToken }) => ({
+      query: ({ id, updatedProduct}) => ({
         url: `/api/products/${id}/`,
         method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
         body: updatedProduct,
       }),
     }),
 
     // delete a product
     deleteProduct: builder.mutation<any, { id: number; accessToken: string }>({
-      query: ({ id, accessToken }) => ({
+      query: ({ id}) => ({
         url: `/api/products/${id}/`,
         method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
       }),
+    }),
+
+    //Get my products
+    getMyProducts: builder.query<any, { accessToken: string }>({
+      query: () => `api/products/my-products/`,
     }),
   }),
 });
 
 // Export hooks for usage in components, which are
 export const {
-    useGetProductsQuery,
-    useGetProductByIdQuery,
-    useCreateProductMutation,
-    useUpdateProductMutation,
-    useDeleteProductMutation,
+  useGetProductsQuery,
+  useGetProductByIdQuery,
+  useCreateProductMutation,
+  useUpdateProductMutation,
+  useDeleteProductMutation,
+  useGetMyProductsQuery,
 } = productApi;

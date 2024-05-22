@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import cartSlice from "./features/cart/cartSlice";
 import userProfileSlice from "./features/userProfile/userProfileSlice";
-import loginSlice from "./features/login/loginSlice";
 import { ecommerceApi } from "./api";
 import authSlice from "./features/auth/authSlice";
+import loginSlice from "./features/login/loginSlice";
 
 export const makeStore = () => {
   return configureStore({
@@ -12,7 +12,7 @@ export const makeStore = () => {
       [ecommerceApi.reducerPath]: ecommerceApi.reducer,
       cart: cartSlice,
       userProfile: userProfileSlice,
-      login: loginSlice,
+      login : loginSlice,
       auth: authSlice,
     },
     // Adding the api middleware enables caching, invalidation, polling,
